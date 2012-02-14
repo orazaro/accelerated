@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding='ISO-8859-1' standalone='yes' ?>
+<TestRun>
+  <FailedTests>
+    <FailedTest id="1">
+      <Name>myTest::checkGrade</Name>
+      <FailureType>Assertion</FailureType>
+      <Location>
+        <File>main1_test.cpp</File>
+        <Line>17</Line>
+      </Location>
+      <Message>equality assertion failed
+- Expected: 1.1
+- Actual  : 1
+</Message>
+    </FailedTest>
+  </FailedTests>
+  <SuccessfulTests>
+    <Test id="2">
+      <Name>myTest::checkMedian</Name>
+    </Test>
+  </SuccessfulTests>
+  <Statistics>
+    <Tests>2</Tests>
+    <FailuresTotal>1</FailuresTotal>
+    <Errors>0</Errors>
+    <Failures>1</Failures>
+  </Statistics>
+</TestRun>
