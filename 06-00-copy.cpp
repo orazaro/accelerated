@@ -1,4 +1,3 @@
-/* ex: set tabstop=2 expandtab: */
 #include <iostream>
 #include <string>
 #include <vector>
