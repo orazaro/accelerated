@@ -3,25 +3,33 @@
 #include <stdexcept>
 #include <cctype>
 
-std::vector<std::string> split(const std::string& s)
-{	
-	std::vector<std::string> vec; 
-	std::string::const_iterator i = s.begin();
-	while(i != s.end())
-	{
-		while(i != s.end() && isspace(*i))
-			++i; 
-		std::string::const_iterator j = i;
-		while(j != s.end() && !isspace(*j))
-			++j;
-		if(j != i) {
-			std::string token = std::string(i, j);
-			vec.push_back(token);
-			i = j;
-		}
-	}
+bool space(char c)
+{
+	return isspace(c);
+}
+bool not_space(char c)
+{
+	return !isspace(c);
+}
 
-	return vec;
+std::vector<std::string> split(const std::string& str)
+{	
+	using namespace std;
+	typedef string::const_iterator iter;
+	vector<string> ret;
+
+	iter i = str.begin();
+	while(i != str.end())
+	{
+		// ignore leading spaces
+		i = find_if(i, str.end(), not_space);
+		// find end of next word
+		iter j = find_if(i, str.end(), space);
+		if(i != str.end())
+			ret.push_back(string(i, j));
+		i = j;
+	}
+	return ret;
 }
 
 /* SETUP TESTS */
