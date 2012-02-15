@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <cctype>
 
+// isspace is overloaded so we use wrapper function as argument for find_if
 bool space(char c)
 {
 	return isspace(c);
