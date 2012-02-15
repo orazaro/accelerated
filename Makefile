@@ -1,4 +1,4 @@
-#$Id: Makefile,v 1.2 2012/02/08 16:56:33 oraz Exp $
+#$Id$
 
 CPP 			= $(wildcard *.cpp)
 PROGRAMS	= $(CPP:%.cpp=%) 
