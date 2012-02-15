@@ -44,7 +44,6 @@ std::vector<std::string> vcat(const std::vector<std::string>& top,
 
 int main()
 {
-	// read data
 	vector<string> v,f;
 	string line;
 	while(getline(cin, line))
