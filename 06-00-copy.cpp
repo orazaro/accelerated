@@ -38,7 +38,7 @@ std::vector<std::string> vcat(const std::vector<std::string>& top,
 	const std::vector<std::string>& bottom)
 {
 	vector<string> ret = top;
-#if 1
+#if 0
 	copy(bottom.begin(), bottom.end(), back_inserter(ret));
 #else
 	ret.resize(top.size()+bottom.size());
