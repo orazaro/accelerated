@@ -2,16 +2,49 @@
 #include <vector>
 #include <stdexcept>
 #include <cctype>
+#include <string>
+#include <algorithm>
 
-std::vector<std::string> find_urls(const std::string& str)
+std::string::const_iterator
+url_beg(std::string::const_iterator b, std::string::const_iterator e)
+{
+}
+
+
+bool not_url_char(char c)
+{
+	static const std::string url_ch = "~;/?:@=&$-_.+!*'(),";
+	return !( 
+		isalnum(c) ||
+		find(url_ch.begin(), url_ch.end(), c) != url_ch.end()
+		);
+}
+
+std::string::const_iterator
+url_end(std::string::const_iterator b, std::string::const_iterator e)
+{
+	return find_if(b, e, not_url_char);
+}
+
+std::vector<std::string> find_urls(const std::string& s)
 {	
 	using namespace std;
-	typedef string::const_iterator iter;
 	vector<string> ret;
+	typedef string::const_iterator iter;
+	iter b = s.begin(), e = s.end();
+	
+	// look through the entire input
+	while(b != e) {
+		// look for one or more letters followed by ://
+		b = url_beg(b, e);
+		// if we found it
+		if(b != e) {
+			// get the rest of the URL
+			iter after = url_end(b, e);
 
-	if(str == string("http://www.com/b.b?p1=1&p2=2")) {
-		ret.push_back(str);
-		return ret;
+			ret.push_back(string(b, after));
+			b = after;
+		}
 	}
 
 	return ret;
