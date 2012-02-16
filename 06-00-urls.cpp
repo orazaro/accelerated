@@ -5,10 +5,10 @@
 #include <string>
 #include <algorithm>
 
-//#define FAST
+#define FAST
 
 std::string::const_iterator
-url_beg(std::string::const_iterator b, std::string::const_iterator e)
+url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
 {
     using namespace std;
     typedef string::const_iterator iter;
@@ -37,7 +37,6 @@ url_beg_fast(std::string::const_iterator b, std::string::const_iterator e)
     } state;
     using namespace std;
     typedef string::const_iterator iter;
-    const string beg("://");
     state s = s_undef;
 
     iter head = e;
@@ -84,16 +83,6 @@ url_beg_fast(std::string::const_iterator b, std::string::const_iterator e)
             break;
         }
     }
-#if 0
-    while(b != e) {
-        while(b != e && !isalpha(*b)) ++b;
-        iter t = b;
-        while(b != e && isalpha(*t)) ++t;
-        if(equal(t, t+beg.size(), beg.begin()))
-            return b;
-        b = t;
-    }
-#endif
     return e;
 }
 
@@ -126,7 +115,7 @@ std::vector<std::string> find_urls(const std::string& s)
 #ifdef FAST
         b = url_beg_fast(b, e);
 #else
-        b = url_beg(b, e);
+        b = url_beg_my(b, e);
 #endif
         // if we found it
         if(b != e) {
@@ -201,7 +190,7 @@ void myTest::checkResult()
         struct timeval tvStart,tvEnd;
         gettimeofday (&tvStart,NULL);
         cout << "bench start..";
-        int n = 100000;
+        int n = 10000;
         for(int i = 0; i < n; i++) {
             vec = find_urls(input);
         }    
