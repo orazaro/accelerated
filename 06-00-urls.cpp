@@ -16,7 +16,7 @@ url_beg(std::string::const_iterator b, std::string::const_iterator e)
         while(b != e && !isalpha(*b)) ++b;
         iter t = b;
         while(b != e && isalpha(*t)) ++t;
-        if(equal(t, t+3, beg.begin()))
+        if(equal(t, t+beg.size(), beg.begin()))
             return b;
         b = t;
     }
@@ -78,7 +78,18 @@ public:
     CPPUNIT_TEST_SUITE_END();
 };
 CPPUNIT_TEST_SUITE_REGISTRATION ( myTest );
-    
+
+#include <time.h>
+#include <sys/time.h>
+double difftimeofday(const struct timeval *tvStart, const struct timeval *tvEnd)
+{
+    #define SEC_TO_MKSEC(s) ((s) * 1000 * 1000) 
+    size_t t1 = (SEC_TO_MKSEC(tvStart->tv_sec) + tvStart->tv_usec);
+    size_t t2 = (SEC_TO_MKSEC(tvEnd->tv_sec) + tvEnd->tv_usec);
+    double rdiff = t2 > t1 ? (double)(t2 - t1)/1000. : 0;
+    return rdiff;
+}    
+
 void myTest::checkResult() 
 {
     using namespace std;
@@ -106,6 +117,24 @@ void myTest::checkResult()
     for(vec_str::size_type i = 0; i != vec.size(); ++i) {
         std::cout << i << " " << vec[i] << std::endl;
         CPPUNIT_ASSERT_EQUAL(etalon[i], vec[i]);
+    }
+
+    /* check speed */
+    {
+        struct timeval tvStart,tvEnd;
+        gettimeofday (&tvStart,NULL);
+        cout << "bench start..";
+        int n = 10000;
+        for(int i = 0; i < n; i++) {
+            vec = find_urls(input);
+        }    
+        cout << "end" << endl;
+        gettimeofday (&tvEnd,NULL);
+        double dt = difftimeofday(&tvStart, &tvEnd) / n;
+        double dtmax = 0.02;
+        cout << "dt=" << dt  << " mSec"<< endl;
+        CPPUNIT_ASSERT_MESSAGE("bench speed > 0.02 mSec",dt < dtmax);
+
     }
 }
 
