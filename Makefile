@@ -17,11 +17,11 @@ LDFLAGS     = $(LIBRARIES:%=-l%)
 all: $(PROGRAMS) $(PROGRAMC) 
 
 %: %.cpp
-    $(CXX) $(CPPFLAGS) $(LDFLAGS) $^ -o $@
+	$(CXX) $(CPPFLAGS) $(LDFLAGS) $^ -o $@
 
 %: %.c
-    $(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
-    rm -f *.o *.a $(PROGRAMS) $(PROGRAMC)
+	rm -f *.o *.a $(PROGRAMS) $(PROGRAMC)
 

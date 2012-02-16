@@ -8,7 +8,20 @@
 std::string::const_iterator
 url_beg(std::string::const_iterator b, std::string::const_iterator e)
 {
+    using namespace std;
+    typedef string::const_iterator iter;
+    bool found = false;
+    
+    while(b != e) {
+        while(!isalpha(*b)) ++b;
+        iter t = b;
+        while(isalpha(*t)) ++t;
+        if(*t == ':' && *(t+1) == '/' && *(t+2) == '/')
+            return b;
+        b = t;
+    }
 
+    return b;
 }
 
 
@@ -70,7 +83,7 @@ void myTest::checkResult()
 {
     using namespace std;
     typedef vector<string> vec_str;
-    const string dummy1("http://www.com/b.b?p1=1&p2=2");
+    const string dummy1("ftp://www.com/b.b?p1=1&p2=2");
     vec_str vec = find_urls(dummy1);
     CPPUNIT_ASSERT_EQUAL((vec_str::size_type)1, vec.size());
     const string dummy0("www.com/b.b?p1=1&p2=2");
