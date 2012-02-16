@@ -5,7 +5,7 @@
 #include <string>
 #include <algorithm>
 
-#define FAST
+//#define FAST
 
 std::string::const_iterator
 url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
@@ -17,12 +17,10 @@ url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
     while(b != e) {
         while(b != e && !isalpha(*b)) ++b;
         iter t = b;
-        while(b != e && isalpha(*t)) ++t;
-        if(equal(t, t+beg.size(), beg.begin()))
-            return b;
-        b = t;
+        while(b != e && isalpha(*b)) ++b;
+        if(equal(b, b+beg.size(), beg.begin()))
+            return t;
     }
-
     return b;
 }
 std::string::const_iterator
