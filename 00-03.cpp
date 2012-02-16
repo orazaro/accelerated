@@ -2,6 +2,6 @@
 
 int main()
 {
-	std::cout << "a\tb\t\t\t\tc" << std::endl;
-	return 0;
+    std::cout << "a\tb\t\t\t\tc" << std::endl;
+    return 0;
 }
