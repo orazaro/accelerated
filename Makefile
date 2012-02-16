@@ -24,5 +24,5 @@ all: $(PROGRAMS) $(PROGRAMC)
 	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
-	rm -f *.o *.a $(PROGRAMS) $(PROGRAMC)
+	rm -f *.o *.a $(PROGRAMS) $(PROGRAMC) cpptestresults.xml
 

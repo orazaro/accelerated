@@ -38,7 +38,7 @@ static bool run_all_tests_xml()
 int main(int argc, char* argv[])
 {
 	bool res;
-	if(argc > 1 && (std::string(argv[1]) == std::string("xml")) ) {
+	if(argc > 1 && (std::string(argv[1]) == std::string("-xml")) ) {
 		res = run_all_tests_xml();
         std::cerr << "xml output saved: " << cpptestresults << std::endl;
     }
