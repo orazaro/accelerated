@@ -16,24 +16,7 @@ bool not_url_char(char c)
         );
 }
 
-#if 0
-std::string::const_iterator
-url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
-{
-    using namespace std;
-    typedef string::const_iterator iter;
-    const string beg("://");
-    
-    while(b != e) {
-        while(b != e && !isalpha(*b)) ++b;
-        iter t = b;
-        while(b != e && isalpha(*b)) ++b;
-        if(equal(b, b+beg.size(), beg.begin()))
-            return t;
-    }
-    return b;
-}
-#else
+#if 1
 // fast enought becouse of search
 std::string::const_iterator
 url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
@@ -57,6 +40,23 @@ url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
         i += sep.size();
     }
     return e;
+}
+#else
+std::string::const_iterator
+url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
+{
+    using namespace std;
+    typedef string::const_iterator iter;
+    const string beg("://");
+    
+    while(b != e) {
+        while(b != e && !isalpha(*b)) ++b;
+        iter t = b;
+        while(b != e && isalpha(*b)) ++b;
+        if(equal(b, b+beg.size(), beg.begin()))
+            return t;
+    }
+    return b;
 }
 #endif
 
