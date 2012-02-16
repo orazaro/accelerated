@@ -1,10 +1,11 @@
 #$Id: Makefile,v 1.2 2012/02/08 16:56:33 oraz Exp $
 
-CPP         = $(wildcard *.cpp)
-PROGRAMS    = $(CPP:%.cpp=%) 
-CFILES      = $(wildcard *.c)
-PROGRAMC    = $(CFILES:%.c=%) 
-LIBRARIES   = cppunit
+CPP			= $(wildcard *.cpp)
+PROGRAMS	= $(CPP:%.cpp=%) 
+CFILES		= $(wildcard *.c)
+PROGRAMC	= $(CFILES:%.c=%) 
+LIBRARIES	= cppunit
+DEPS		= cppunit_run.inc
 
 CC          = gcc
 CXX         = g++
@@ -16,8 +17,8 @@ LDFLAGS     = $(LIBRARIES:%=-l%)
 
 all: $(PROGRAMS) $(PROGRAMC) 
 
-%: %.cpp
-	$(CXX) $(CPPFLAGS) $(LDFLAGS) $^ -o $@
+%: %.cpp $(DEPS) 
+	$(CXX) $(CPPFLAGS) $(LDFLAGS) $< -o $@
 
 %: %.c
 	$(CC) $(CFLAGS) $^ -o $@
