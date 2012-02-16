@@ -23,6 +23,7 @@ url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
     }
     return b;
 }
+/* url_beg_fast add +20% speed */
 std::string::const_iterator
 url_beg_fast(std::string::const_iterator b, std::string::const_iterator e)
 {
