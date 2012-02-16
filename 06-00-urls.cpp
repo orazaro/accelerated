@@ -5,7 +5,7 @@
 #include <string>
 #include <algorithm>
 
-//#define FAST
+#define FAST
 
 std::string::const_iterator
 url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
