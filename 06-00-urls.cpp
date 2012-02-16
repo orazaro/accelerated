@@ -5,8 +5,18 @@
 #include <string>
 #include <algorithm>
 
-#define FAST
+//#define FAST
 
+bool not_url_char(char c)
+{
+    static const std::string url_ch = "~;/?:@=&$-_.+!*'(),";
+    return !( 
+        isalnum(c) ||
+        find(url_ch.begin(), url_ch.end(), c) != url_ch.end()
+        );
+}
+
+#if 0
 std::string::const_iterator
 url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
 {
@@ -23,6 +33,33 @@ url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
     }
     return b;
 }
+#else
+// fast enought becouse of search
+std::string::const_iterator
+url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
+{
+    using namespace std;
+    static const string sep = "://";
+    typedef string::const_iterator iter;
+
+    iter i = b;
+    while((i = search(i, e, sep.begin(), sep.end())) != e) {
+        //make sure the separator isn't at the beginning or end of the line
+        if(i != b && i + sep.size() != e) {
+            iter beg = i;
+            while(beg != b && isalpha(beg[-1]))
+                --beg;
+            // is there at least one appropriate character 
+            // before and after the separator?
+            if(beg != i && !not_url_char(i[sep.size()]))
+                return beg;
+        }
+        i += sep.size();
+    }
+    return e;
+}
+#endif
+
 /* url_beg_fast add +20% speed */
 std::string::const_iterator
 url_beg_fast(std::string::const_iterator b, std::string::const_iterator e)
@@ -85,15 +122,6 @@ url_beg_fast(std::string::const_iterator b, std::string::const_iterator e)
     return e;
 }
 
-
-bool not_url_char(char c)
-{
-    static const std::string url_ch = "~;/?:@=&$-_.+!*'(),";
-    return !( 
-        isalnum(c) ||
-        find(url_ch.begin(), url_ch.end(), c) != url_ch.end()
-        );
-}
 
 std::string::const_iterator
 url_end(std::string::const_iterator b, std::string::const_iterator e)
