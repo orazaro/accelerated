@@ -5,6 +5,8 @@
 #include <string>
 #include <algorithm>
 
+//#define FAST
+
 std::string::const_iterator
 url_beg(std::string::const_iterator b, std::string::const_iterator e)
 {
@@ -22,6 +24,77 @@ url_beg(std::string::const_iterator b, std::string::const_iterator e)
     }
 
     return b;
+}
+std::string::const_iterator
+url_beg_fast(std::string::const_iterator b, std::string::const_iterator e)
+{
+    typedef enum {
+        s_undef,
+        s_alpha,
+        s_beg1,
+        s_beg2,
+        s_beg3
+    } state;
+    using namespace std;
+    typedef string::const_iterator iter;
+    const string beg("://");
+    state s = s_undef;
+
+    iter head = e;
+    while(b != e) {
+        switch(s){
+            case s_undef:
+                if(isalpha(*b)) {
+                    s = s_alpha;
+                    head = b;
+                }
+                ++b;
+            break;
+            case s_alpha:
+                if(*b == ':')
+                    s = s_beg1;
+                else if(!isalpha(*b))
+                    s = s_undef;
+                ++b;
+            break;
+            case s_beg1:
+                if(*b == '/') {
+                    s = s_beg2;
+                }
+                else if(isalpha(*b)) {
+                    s = s_alpha;
+                    head = b;
+                } else
+                    s = s_undef;
+                ++b;
+            break;
+            case s_beg2:
+                if(*b == '/') {
+                    return head;
+                }
+                else if(isalpha(*b)) {
+                    s = s_alpha;
+                    head = b;
+                } else
+                    s = s_undef;
+                ++b;
+            break;
+            default:
+            throw runtime_error("bad state!");
+            break;
+        }
+    }
+#if 0
+    while(b != e) {
+        while(b != e && !isalpha(*b)) ++b;
+        iter t = b;
+        while(b != e && isalpha(*t)) ++t;
+        if(equal(t, t+beg.size(), beg.begin()))
+            return b;
+        b = t;
+    }
+#endif
+    return e;
 }
 
 
@@ -46,11 +119,15 @@ std::vector<std::string> find_urls(const std::string& s)
     vector<string> ret;
     typedef string::const_iterator iter;
     iter b = s.begin(), e = s.end();
-    
+
     // look through the entire input
     while(b != e) {
         // look for one or more letters followed by ://
+#ifdef FAST
+        b = url_beg_fast(b, e);
+#else
         b = url_beg(b, e);
+#endif
         // if we found it
         if(b != e) {
             // get the rest of the URL
@@ -124,7 +201,7 @@ void myTest::checkResult()
         struct timeval tvStart,tvEnd;
         gettimeofday (&tvStart,NULL);
         cout << "bench start..";
-        int n = 10000;
+        int n = 100000;
         for(int i = 0; i < n; i++) {
             vec = find_urls(input);
         }    
