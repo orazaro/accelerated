@@ -10,13 +10,13 @@ url_beg(std::string::const_iterator b, std::string::const_iterator e)
 {
     using namespace std;
     typedef string::const_iterator iter;
-    bool found = false;
+    const string beg("://");
     
     while(b != e) {
-        while(!isalpha(*b)) ++b;
+        while(b != e && !isalpha(*b)) ++b;
         iter t = b;
-        while(isalpha(*t)) ++t;
-        if(*t == ':' && *(t+1) == '/' && *(t+2) == '/')
+        while(b != e && isalpha(*t)) ++t;
+        if(equal(t, t+3, beg.begin()))
             return b;
         b = t;
     }
@@ -92,8 +92,8 @@ void myTest::checkResult()
 
     const string dummy2("http://a.com/b/c.d?p1=e&p2=f");
     string input(" \tone two\n");
-    input += dummy1 + "tree\tfour five\t<a href=\"";
-    input += dummy2 + "\">link</a>";
+    input += dummy1 + ">tree\tfour five\t<a href=\"";
+    input += dummy2 + "\">link</a>http:aaahtbbhttp:/ddhttp:";
     
     vec_str etalon;
     etalon.push_back(dummy1);
