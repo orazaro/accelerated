@@ -8,6 +8,7 @@
 #include <stdexcept>
 
 #include "grade.h"
+#include "median.h"
 #include "Student_info.h"
 
 bool did_all_hw(const Student_info& s)
@@ -18,13 +19,41 @@ bool did_all_hw(const Student_info& s)
         );
 }
 
+double grade_aux(const Student_info& s)
+{
+    try {
+        return grade(s);
+    } catch(std::domain_error) {
+        return grade(s.midterm, s.final, 0);
+    }
+}
+
+double median_analysis(const std::vector<Student_info>& students)
+{
+    using namespace std;
+    vector<double> grades;
+
+    transform(students.begin(), students.end(),
+        back_inserter(grades), grade_aux);
+    return median(grades);
+}
+
+void write_analysis(std::ostream& out, const std::string& name,
+    double analysis(const std::vector<Student_info>&),
+    const std::vector<Student_info>& did,
+    const std::vector<Student_info>& didnt)
+{
+    out << name << ": median(did) - " << analysis(did) <<
+        ", median(didnt) = " << analysis(didnt) << std::endl;
+}
+
 int main()
 {
     using namespace std;
     vector<Student_info> did, didnt;
-    Student_info student;
 
     // read all students, separating them based on whether all homework was done
+    Student_info student;
     while(read(cin, student)) {
         if(did_all_hw(student))
             did.push_back(student);
@@ -40,6 +69,9 @@ int main()
         cout << "Every student did all the homework!" << endl;
         return 1;
     }
+
+    // do the analysis
+    write_analysis(cout, "median", median_analysis, did, didnt);
 
     return 0;
 }
