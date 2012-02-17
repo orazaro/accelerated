@@ -161,8 +161,10 @@ public:
     void tearDown() {}
 
     void checkResult();
+    void checkSpeed();
     CPPUNIT_TEST_SUITE( myTest );
     CPPUNIT_TEST( checkResult );
+    CPPUNIT_TEST( checkSpeed );
     CPPUNIT_TEST_SUITE_END();
 };
 CPPUNIT_TEST_SUITE_REGISTRATION ( myTest );
@@ -206,7 +208,19 @@ void myTest::checkResult()
         std::cout << i << " " << vec[i] << std::endl;
         CPPUNIT_ASSERT_EQUAL(etalon[i], vec[i]);
     }
-
+}
+void myTest::checkSpeed() 
+{
+    using namespace std;
+    typedef vector<string> vec_str;
+    const string dummy1("ftp://www.com/b.b?p1=1&p2=2");
+    const string dummy0("www.com/b.b?p1=1&p2=2");
+    const string dummy2("http://a.com/b/c.d?p1=e&p2=f");
+    string input(" \tone two\n");
+    input += dummy1 + ">tree\tfour five\t<a href=\"";
+    input += dummy2 + "\">link</a>http:aaahtbbhttp:/ddhttp:";
+    vec_str vec;
+    
     /* check speed */
     {
         struct timeval tvStart,tvEnd;
