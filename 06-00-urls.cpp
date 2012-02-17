@@ -5,8 +5,6 @@
 #include <string>
 #include <algorithm>
 
-//#define FAST
-
 bool not_url_char(char c)
 {
     static const std::string url_ch = "~;/?:@=&$-_.+!*'(),";
@@ -16,10 +14,10 @@ bool not_url_char(char c)
         );
 }
 
-#if 1
+/*** variations of url_beg ***/
 // fast enought becouse of search
 std::string::const_iterator
-url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
+url_beg_book(std::string::const_iterator b, std::string::const_iterator e)
 {
     using namespace std;
     static const string sep = "://";
@@ -41,7 +39,6 @@ url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
     }
     return e;
 }
-#else
 std::string::const_iterator
 url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
 {
@@ -58,8 +55,6 @@ url_beg_my(std::string::const_iterator b, std::string::const_iterator e)
     }
     return b;
 }
-#endif
-
 /* url_beg_fast add +20% speed */
 std::string::const_iterator
 url_beg_fast(std::string::const_iterator b, std::string::const_iterator e)
@@ -121,13 +116,17 @@ url_beg_fast(std::string::const_iterator b, std::string::const_iterator e)
     }
     return e;
 }
-
+/*** variations of url_beg END ***/
 
 std::string::const_iterator
 url_end(std::string::const_iterator b, std::string::const_iterator e)
 {
     return find_if(b, e, not_url_char);
 }
+
+static std::string::const_iterator
+(&url_beg_ref)(std::string::const_iterator, std::string::const_iterator)
+= url_beg_book;
 
 std::vector<std::string> find_urls(const std::string& s)
 {    
@@ -139,11 +138,7 @@ std::vector<std::string> find_urls(const std::string& s)
     // look through the entire input
     while(b != e) {
         // look for one or more letters followed by ://
-#ifdef FAST
-        b = url_beg_fast(b, e);
-#else
-        b = url_beg_my(b, e);
-#endif
+        b = url_beg_ref(b, e);
         // if we found it
         if(b != e) {
             // get the rest of the URL
