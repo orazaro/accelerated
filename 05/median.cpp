@@ -20,3 +20,4 @@ double median(vector<double> vec)
         (vec[mid-1] + vec[mid]) / 2 :
         vec[mid];
 }
+
