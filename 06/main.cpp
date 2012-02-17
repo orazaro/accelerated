@@ -47,6 +47,44 @@ void write_analysis(std::ostream& out, const std::string& name,
         ", median(didnt) = " << analysis(didnt) << std::endl;
 }
 
+/* average analysis */
+#include <numeric>
+double average(const std::vector<double>& v)
+{
+    return accumulate(v.begin(), v.end(), 0.0) / v.size();
+}
+double average_grade(const Student_info& s)
+{
+    return grade(s.midterm, s.final, average(s.homework));
+}
+double average_analysis(const std::vector<Student_info>& students)
+{
+    std::vector<double> grades;
+    transform(students.begin(), students.end(),
+        back_inserter(grades), average_grade);
+    return median(grades);
+}
+/* optimistic */
+double optimistic_median(const Student_info& s)
+{
+    using namespace std;
+    vector<double> nonzero;
+    remove_copy(s.homework.begin(), s.homework.end(),
+        back_inserter(nonzero), 0);
+    if(nonzero.empty())
+        return grade(s.midterm, s.final, 0);
+       else
+        return grade(s.midterm, s.final, median(nonzero));
+}
+double optimistic_median_analysis(const std::vector<Student_info>& students)
+{
+    std::vector<double> grades;
+    transform(students.begin(), students.end(),
+        back_inserter(grades), optimistic_median);
+    return median(grades);
+}
+
+
 int main()
 {
     using namespace std;
@@ -72,6 +110,8 @@ int main()
 
     // do the analysis
     write_analysis(cout, "median", median_analysis, did, didnt);
+    write_analysis(cout, "average", average_analysis, did, didnt);
+    write_analysis(cout, "median of homework turned in", optimistic_median_analysis, did, didnt);
 
     return 0;
 }
