@@ -17,9 +17,9 @@ static bool run_all_tests()
 #include <cppunit/TestResultCollector.h>
 static bool run_all_tests_xml()
 {
-	CppUnit::TestResult    controller;
-	CppUnit::TestResultCollector result;
-	controller.addListener(&result);
+    CppUnit::TestResult    controller;
+    CppUnit::TestResultCollector result;
+    controller.addListener(&result);
 
   CppUnit::Test *test =
     CppUnit::TestFactoryRegistry::getRegistry().makeTest();
@@ -27,20 +27,20 @@ static bool run_all_tests_xml()
   runner.addTest(test);
 
   runner.run(controller);
-	std::ofstream xmlFileOut("cpptestresults.xml");
-	CppUnit::XmlOutputter xmlOut(&result, xmlFileOut);
-	xmlOut.write();
+    std::ofstream xmlFileOut("cpptestresults.xml");
+    CppUnit::XmlOutputter xmlOut(&result, xmlFileOut);
+    xmlOut.write();
 
-	return result.testFailuresTotal() == 0;
+    return result.testFailuresTotal() == 0;
 }
 
 int main(int argc, char* argv[])
 {
-	bool res;
-	if(argc > 1 && (std::string(argv[1]) == std::string("xml")) )
-		res = run_all_tests_xml();
-	else
-		res = run_all_tests();
+    bool res;
+    if(argc > 1 && (std::string(argv[1]) == std::string("xml")) )
+        res = run_all_tests_xml();
+    else
+        res = run_all_tests();
 
-	return res?0:1;
+    return res?0:1;
 }

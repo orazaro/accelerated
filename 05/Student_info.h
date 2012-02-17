@@ -7,10 +7,10 @@
 #include <list>
 
 struct Student_info {
-	std::string name;
-	double midterm, final;
-	std::vector<double> homework;
-	double final_grade;
+    std::string name;
+    double midterm, final;
+    std::vector<double> homework;
+    double final_grade;
 };
 
 typedef std::vector<Student_info> StudentList;

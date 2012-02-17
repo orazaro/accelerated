@@ -8,12 +8,12 @@
 //#define GRADE_INPLACE
 
 struct Student_info {
-	std::string name;
+    std::string name;
 #ifdef GRADE_INPLACE
-	double final_grade;
+    double final_grade;
 #else
-	double midterm, final;
-	std::vector<double> homework;
+    double midterm, final;
+    std::vector<double> homework;
 #endif
 };
 

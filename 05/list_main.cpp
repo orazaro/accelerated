@@ -12,17 +12,17 @@
 
 int main()
 {
-	StudentList students;
+    StudentList students;
 
-	read(std::cin, students);
+    read(std::cin, students);
 
-	StudentList fail = extract_fails(students);
+    StudentList fail = extract_fails(students);
 
-	std::cout << "pass:" << std::endl;
-	out_students(students, std::cout);
-	std::cout << "fail:" << std::endl;
-	out_students(fail, std::cout);
-	
-	return 0;
+    std::cout << "pass:" << std::endl;
+    out_students(students, std::cout);
+    std::cout << "fail:" << std::endl;
+    out_students(fail, std::cout);
+    
+    return 0;
 }
 
