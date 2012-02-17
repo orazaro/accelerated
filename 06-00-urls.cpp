@@ -183,17 +183,6 @@ public:
 };
 CPPUNIT_TEST_SUITE_REGISTRATION ( myTest );
 
-#include <time.h>
-#include <sys/time.h>
-double difftimeofday(const struct timeval *tvStart, const struct timeval *tvEnd)
-{
-    #define SEC_TO_MKSEC(s) ((s) * 1000 * 1000) 
-    size_t t1 = (SEC_TO_MKSEC(tvStart->tv_sec) + tvStart->tv_usec);
-    size_t t2 = (SEC_TO_MKSEC(tvEnd->tv_sec) + tvEnd->tv_usec);
-    double rdiff = t2 > t1 ? (double)(t2 - t1)/1000. : 0;
-    return rdiff;
-}    
-
 void myTest::checkResult() 
 {
     using namespace std;
@@ -216,6 +205,18 @@ void myTest::checkResult()
         CPPUNIT_ASSERT_EQUAL(etalon[i], vec[i]);
     }
 }
+
+#include <time.h>
+#include <sys/time.h>
+double difftimeofday(const struct timeval *tvStart, const struct timeval *tvEnd)
+{
+    #define SEC_TO_MKSEC(s) ((s) * 1000 * 1000) 
+    size_t t1 = (SEC_TO_MKSEC(tvStart->tv_sec) + tvStart->tv_usec);
+    size_t t2 = (SEC_TO_MKSEC(tvEnd->tv_sec) + tvEnd->tv_usec);
+    double rdiff = t2 > t1 ? (double)(t2 - t1)/1000. : 0;
+    return rdiff;
+}    
+
 void myTest::checkSpeed() 
 {
     using namespace std;
