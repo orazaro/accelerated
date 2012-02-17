@@ -126,7 +126,7 @@ url_end(std::string::const_iterator b, std::string::const_iterator e)
 
 static std::string::const_iterator
 (&url_beg_ref)(std::string::const_iterator, std::string::const_iterator)
-= url_beg_book;
+= url_beg_book; /* variants: _book, _my, _fast */
 
 std::vector<std::string> find_urls(const std::string& s)
 {    
