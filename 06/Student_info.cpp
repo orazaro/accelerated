@@ -133,7 +133,7 @@ extract_fails_resize(std::vector<Student_info>& students)
     return fail;
 }
 
-bool pgrade(const Student_info& s)
+static bool pgrade(const Student_info& s)
 {
     return !fgrade(s);
 }
