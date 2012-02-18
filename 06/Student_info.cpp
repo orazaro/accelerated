@@ -162,3 +162,12 @@ extract_fails_partition(std::vector<Student_info>& students)
     return fail;
 }
 
+std::vector<Student_info>
+extract_fails_my(std::vector<Student_info>& students)
+{
+    std::vector<Student_info>::iterator iter =
+        stable_partition(students.begin(), students.end(), mygrade);
+    std::vector<Student_info> fail(iter, students.end());
+    students.erase(iter, students.end());
+    return fail;
+}

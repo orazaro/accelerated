@@ -30,5 +30,7 @@ std::vector<Student_info>
 extract_fails_remove(std::vector<Student_info>& students);
 std::vector<Student_info>
 extract_fails_partition(std::vector<Student_info>& students);
+std::vector<Student_info>
+extract_fails_my(std::vector<Student_info>& students);
 
 #endif /*GUARD_Student_info_h*/

@@ -25,3 +25,8 @@ bool fgrade(const Student_info& s)
 {
     return  grade(s) < 60;
 }
+
+bool mygrade(const Student_info& s)
+{
+    return s.name < "Oleg";
+}

@@ -102,9 +102,14 @@ int main()
 
     for(Student_info student; read(cin, student);)
         did.push_back(student);
-
+#if 0
     vector<Student_info>::iterator p =
         partition(did.begin(), did.end(), did_all_hw);
+#else
+    vector<Student_info>::iterator p =
+        partition(did.begin(), did.end(), mygrade);
+#endif
+
     copy(p, did.end(), back_inserter(didnt));
     did.erase(p, did.end());
     

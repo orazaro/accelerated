@@ -10,7 +10,8 @@ std::vector<Student_info> (*extract_fails[])(std::vector<Student_info>&) =
     extract_fails_container,
     extract_fails_resize,
     extract_fails_remove,
-    extract_fails_partition
+    extract_fails_partition,
+    extract_fails_my,
 };
 
 int main(int argc, char* argv[])
