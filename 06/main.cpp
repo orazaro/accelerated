@@ -100,14 +100,13 @@ int main()
     using namespace std;
     vector<Student_info> did, didnt;
 
-    // read all students, separating them based on whether all homework was done
-    Student_info student;
-    while(read(cin, student)) {
-        if(did_all_hw(student))
-            did.push_back(student);
-        else
-            didnt.push_back(student);
-    }
+    for(Student_info student; read(cin, student);)
+        did.push_back(student);
+
+    vector<Student_info>::iterator p =
+        partition(did.begin(), did.end(), did_all_hw);
+    copy(p, did.end(), back_inserter(didnt));
+    did.erase(p, did.end());
     
     if(did.empty()) {
         cout << "No student did all the homework!" << endl;
