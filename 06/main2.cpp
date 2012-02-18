@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
 
 #include "grade.h"
 #include "Student_info.h"
@@ -12,13 +13,16 @@ std::vector<Student_info> (*extract_fails[])(std::vector<Student_info>&) =
     extract_fails_partition
 };
 
-int main()
+int main(int argc, char* argv[])
 {
-    StudentList students;
+    int prog_max = sizeof(extract_fails)/sizeof(int(*)()),
+        prog = prog_max -1;
+    if(argc > 1) prog = (unsigned)atoi(argv[1]) % prog_max ;
 
+    StudentList students;
     read(std::cin, students);
 
-    StudentList fail = extract_fails[3](students);
+    StudentList fail = extract_fails[prog](students);
 
     std::cout << "pass:" << std::endl;
     out_students(students, std::cout);

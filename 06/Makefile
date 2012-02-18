@@ -22,7 +22,7 @@ test: $(TESTS) all
 main: $(OBJ) $(HFILES)
 	$(CXX) $(OBJ) $(LDFLAGS) -o $@
 
-main2: main2.o $(HFILES)
+main2: main2.o $(OBJECTS) $(HFILES)
 	$(CXX) $(OBJECTS) $< $(LDFLAGS) -o $@
 
 %.o: %.cpp %.h Student_info.h
