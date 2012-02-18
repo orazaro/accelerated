@@ -28,14 +28,21 @@ double grade_aux(const Student_info& s)
     }
 }
 
-double median_analysis(const std::vector<Student_info>& students)
+double analysis(const std::vector<Student_info>& students,
+    double grade_func(const Student_info&))
 {
     using namespace std;
     vector<double> grades;
 
     transform(students.begin(), students.end(),
-        back_inserter(grades), grade_aux);
+        back_inserter(grades), grade_func);
     return median(grades);
+}
+
+
+double median_analysis(const std::vector<Student_info>& students)
+{
+    return analysis(students, grade_aux);
 }
 
 void write_analysis(std::ostream& out, const std::string& name,
@@ -45,6 +52,15 @@ void write_analysis(std::ostream& out, const std::string& name,
 {
     out << name << ": median(did) - " << analysis(did) <<
         ", median(didnt) = " << analysis(didnt) << std::endl;
+}
+
+void write_analysis(std::ostream& out, const std::string& name,
+    double grade_func(const Student_info&),
+    const std::vector<Student_info>& did,
+    const std::vector<Student_info>& didnt)
+{
+    out << name << ": median(did) - " << analysis(did, grade_func) <<
+        ", median(didnt) = " << analysis(didnt, grade_func) << std::endl;
 }
 
 /* average analysis */
@@ -59,10 +75,7 @@ double average_grade(const Student_info& s)
 }
 double average_analysis(const std::vector<Student_info>& students)
 {
-    std::vector<double> grades;
-    transform(students.begin(), students.end(),
-        back_inserter(grades), average_grade);
-    return median(grades);
+    return analysis(students, average_grade);
 }
 /* optimistic */
 double optimistic_median(const Student_info& s)
@@ -78,10 +91,7 @@ double optimistic_median(const Student_info& s)
 }
 double optimistic_median_analysis(const std::vector<Student_info>& students)
 {
-    std::vector<double> grades;
-    transform(students.begin(), students.end(),
-        back_inserter(grades), optimistic_median);
-    return median(grades);
+    return analysis(students, optimistic_median);
 }
 
 
@@ -108,8 +118,9 @@ int main()
         return 1;
     }
 
-    // do the analysis
-    write_analysis(cout, "median", median_analysis, did, didnt);
+    // do the analysis with more generalized form
+    write_analysis(cout, "median", grade_aux, did, didnt);
+    // do the analysis with less generalized form
     write_analysis(cout, "average", average_analysis, did, didnt);
     write_analysis(cout, "median of homework turned in", optimistic_median_analysis, did, didnt);
 
