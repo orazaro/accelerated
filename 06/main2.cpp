@@ -9,6 +9,7 @@ std::vector<Student_info> (*extract_fails[])(std::vector<Student_info>&) =
     extract_fails_container,
     extract_fails_resize,
     extract_fails_remove,
+    extract_fails_partition
 };
 
 int main()
@@ -17,7 +18,7 @@ int main()
 
     read(std::cin, students);
 
-    StudentList fail = extract_fails[0](students);
+    StudentList fail = extract_fails[3](students);
 
     std::cout << "pass:" << std::endl;
     out_students(students, std::cout);
