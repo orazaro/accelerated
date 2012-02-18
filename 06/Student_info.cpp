@@ -91,8 +91,7 @@ void out_students(const StudentList& students, std::ostream& out)
     }
 }
 
-#if 0
-StudentList extract_fails(StudentList& students)
+StudentList extract_fails_container(StudentList& students)
 {
     StudentList fail;
     StudentList::iterator iter = students.begin();
@@ -106,9 +105,9 @@ StudentList extract_fails(StudentList& students)
     }
     return fail;
 }
-#else
-//only if vector!!!
-StudentList extract_fails(StudentList& students)
+
+std::vector<Student_info>
+extract_fails_resize(std::vector<Student_info>& students)
 {
     StudentList fail;
     StudentList::iterator iter = students.begin(), pass = iter;
@@ -133,4 +132,22 @@ StudentList extract_fails(StudentList& students)
     students.resize(passed);
     return fail;
 }
-#endif
+
+bool pgrade(const Student_info& s)
+{
+    return !fgrade(s);
+}
+
+std::vector<Student_info>
+extract_fails_remove(std::vector<Student_info>& students)
+{
+    std::vector<Student_info> fail;
+    remove_copy_if(students.begin(), students.end(),
+        back_inserter(fail), pgrade);
+    students.erase(
+        remove_if(students.begin(), students.end(), fgrade),
+        students.end()
+        );
+    return fail;
+
+}

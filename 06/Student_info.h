@@ -22,6 +22,11 @@ std::istream& read_hw(std::istream&, std::vector<double>&);
 std::istream& read(std::istream& in, std::vector<Student_info>& students);
 std::istream& read(std::istream& in, std::list<Student_info>& students);
 void out_students(const StudentList& students, std::ostream& out);
-StudentList extract_fails(StudentList& students);
+
+StudentList extract_fails_container(StudentList& students);
+std::vector<Student_info> 
+extract_fails_resize(std::vector<Student_info>& students);
+std::vector<Student_info>
+extract_fails_remove(std::vector<Student_info>& students);
 
 #endif /*GUARD_Student_info_h*/

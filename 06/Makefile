@@ -1,5 +1,4 @@
-
-PROGRAMS = main
+PROGRAMS = main main2
 TESTS = 
 
 OBJECTS = median.o grade.o Student_info.o
@@ -17,10 +16,14 @@ all: $(PROGRAMS)
 
 test: $(TESTS) all
 	./main <../data/grades
+	./main2 <../data/grades
 
 
 main: $(OBJ) $(HFILES)
 	$(CXX) $(OBJ) $(LDFLAGS) -o $@
+
+main2: main2.o $(HFILES)
+	$(CXX) $(OBJECTS) $< $(LDFLAGS) -o $@
 
 %.o: %.cpp %.h Student_info.h
 	$(CXX) -c $(CPPFLAGS) $<
