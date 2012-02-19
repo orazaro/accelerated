@@ -109,9 +109,11 @@ int main()
 {
     srandom(time(NULL));
     Grammar g = read_grammar(std::cin);
-    std::vector<std::string> ret = gen_sentence(g);
-    std::string s = concatenate(ret);
-    std::cout << s << std::endl;
+    for(int i = 0; i < 10; ++i) {
+        std::vector<std::string> ret = gen_sentence(g);
+        std::string s = concatenate(ret);
+        std::cout <<  << std::endl;
+    }
 
     return 0;
 }
