@@ -60,7 +60,7 @@ int main()
     // write results
     for(map<string, vector<int> >::const_iterator it = ret.begin();
         it != ret.end(); ++it) {
-        pair<string, vector<int> > p = *it;
+        pair<const string, vector<int> > p = *it;
         cout << p.first << " occurs on line(s): ";
         vector<int>::const_iterator line_it = p.second.begin();
         cout << *line_it; ++line_it;
