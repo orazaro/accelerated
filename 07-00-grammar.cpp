@@ -112,7 +112,7 @@ int main()
     for(int i = 0; i < 10; ++i) {
         std::vector<std::string> ret = gen_sentence(g);
         std::string s = concatenate(ret);
-        std::cout <<  << std::endl;
+        std::cout << s << std::endl;
     }
 
     return 0;
