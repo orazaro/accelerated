@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <cctype>
+#include <sstream>
 
 // isspace is overloaded so we use wrapper function as argument for find_if
 inline bool space(char c)
@@ -65,15 +66,18 @@ int main()
     // write results
     for(Xref::const_iterator it = ret.begin();
         it != ret.end(); ++it) {
+        stringstream ss; 
         pair<const string, vector<int> > p = *it;
-        cout << p.first << " occurs on line(s): ";
+        ss << p.first << " : ";
         vector<int>::const_iterator line_it = p.second.begin();
-        cout << *line_it; ++line_it;
+        ss << *line_it; ++line_it;
         while(line_it != p.second.end()) {
-            cout << ", " << *line_it;
+            ss << ", "; ss << *line_it;
             ++line_it;
         }
-        cout << endl;
+        string out = ss.str();
+        if(out.size() >= 77) {out.resize(76); out+="...";}
+        cout << out << endl;
     }
 
     return 0;
