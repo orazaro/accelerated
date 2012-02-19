@@ -60,6 +60,19 @@ bool bracketed(const std::string& s)
     return s.size() > 1 && s[0] == '<' && s[s.size()-1] == '>';
 }
 
+// return a random integer in the range [0, n)
+int nrand(int n)
+{
+    if(n <= 0 || n > RAND_MAX)
+        throw std::domain_error("Argument to nrand is out of range");
+
+    const int bucket_size = RAND_MAX / n;
+    int r;
+    do r = random() / bucket_size;
+    while(r >= n);
+    return r;
+}
+
 void gen_aux(const Grammar& g, const std::string& word, 
     std::vector<std::string>& ret)
 {
@@ -73,7 +86,7 @@ void gen_aux(const Grammar& g, const std::string& word,
         // fetch the set of possible rules
         const Rule_collection& c = it->second;
         // from which we select one at random
-        const Rule& r = c[random() % c.size()];
+        const Rule& r = c[nrand(c.size())];
         // recursivelly expand the selected rule
         for(Rule::const_iterator i = r.begin(); i != r.end(); ++i)
             gen_aux(g, *i, ret);
