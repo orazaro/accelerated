@@ -60,10 +60,11 @@ int main()
     // write results
     for(map<string, vector<int> >::const_iterator it = ret.begin();
         it != ret.end(); ++it) {
-        cout << it->first << " occurs on line(s): ";
-        vector<int>::const_iterator line_it = it->second.begin();
+        pair<string, vector<int> > p = *it;
+        cout << p.first << " occurs on line(s): ";
+        vector<int>::const_iterator line_it = p.second.begin();
         cout << *line_it; ++line_it;
-        while(line_it != it->second.end()) {
+        while(line_it != p.second.end()) {
             cout << ", " << *line_it;
             ++line_it;
         }
