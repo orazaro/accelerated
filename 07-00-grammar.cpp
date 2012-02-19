@@ -122,7 +122,7 @@ int main()
 {
     srandom(time(NULL));
     Grammar g = read_grammar(std::cin);
-    for(int i = 0; i < 10; ++i) {
+    for(int i = 0; i < 30; ++i) {
         std::vector<std::string> ret = gen_sentence(g);
         std::string s = concatenate(ret);
         std::cout << s << std::endl;
