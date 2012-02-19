@@ -1,0 +1,18 @@
+Mmain.cpp	main.cpp	/^int main(int argc, char* argv[])$/
+StudentList	Student_info.h	/^typedef std::vector<Student_info> StudentList;$/
+Student_info	Student_info.h	/^struct Student_info {$/
+compare	Student_info.cpp	/^bool compare(const Student_info& x, const Student_/
+extract_fails_container	Student_info.cpp	/^StudentList extract_fails_container(StudentList& s/
+extract_fails_my	Student_info.cpp	/^extract_fails_my(std::vector<Student_info>& studen/
+extract_fails_partition	Student_info.cpp	/^extract_fails_partition(std::vector<Student_info>&/
+extract_fails_remove	Student_info.cpp	/^extract_fails_remove(std::vector<Student_info>& st/
+extract_fails_resize	Student_info.cpp	/^extract_fails_resize(std::vector<Student_info>& st/
+fgrade	grade.cpp	/^bool fgrade(const Student_info& s)$/
+grade	grade.cpp	/^double grade(double midterm, double final, double /
+median	median.cpp	/^double median(std::vector<double> vec)$/
+mygrade	grade.cpp	/^bool mygrade(const Student_info& s)$/
+out_students	Student_info.cpp	/^void out_students(const StudentList& students, std/
+pgrade	Student_info.cpp	/^static bool pgrade(const Student_info& s)$/
+read	Student_info.cpp	/^std::istream& read(std::istream& in, Student_info&/
+read_hw	Student_info.cpp	/^std::istream& read_hw(std::istream& in, std::vecto/
+vec_sz	median.cpp	/^    typedef vector<double>::size_type vec_sz;$/
