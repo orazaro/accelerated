@@ -61,7 +61,10 @@ int main()
     for(map<string, vector<int> >::const_iterator it = ret.begin();
         it != ret.end(); ++it) {
         pair<const string, vector<int> > p = *it;
-        cout << p.first << " occurs on line(s): ";
+        string w("line");
+        if(p.second.size() > 1)
+            w += "s";
+        cout << p.first << " occurs on " << w << ": ";
         vector<int>::const_iterator line_it = p.second.begin();
         cout << *line_it; ++line_it;
         while(line_it != p.second.end()) {
