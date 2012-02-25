@@ -5,6 +5,8 @@ to test we imitate that this case with trandom() */
 #include <cstdlib>
 #include <stdexcept>
 #include <vector>
+#include <numeric>
+#include <cmath>
 
 const int TRAND_MAX = 1000;
 int trandom()
@@ -38,13 +40,21 @@ int main()
     vector<int> gist(n_gist);
     srandom(time(NULL));
     
-    for(int i = 0; i < 10000000; ++i)
+    for(int i = 0; i < 1000000; ++i)
     {
         int r = nrand(99999);
         gist[r % n_gist]++;
     } 
+    // check
+    double mean = accumulate(gist.begin(), gist.end(), 0.0) / n_gist;
     for(int i = 0; i < n_gist; ++i) {
-        std::cout << i << "\t" << gist[i] << std::endl;
+        double dx = mean - gist[i];
+        double dx2 = sqrt(dx * dx);
+        std::cout << i 
+            << "\t" << gist[i] 
+            << "\t" << dx2
+            << " (" << sqrt(gist[i]) << ")"
+            << std::endl;
     }
     return 0;
 }
