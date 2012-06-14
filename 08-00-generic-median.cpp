@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
+#include <numeric>
 
 using namespace std;
 
@@ -20,19 +21,20 @@ T median(vector<T> v)
 
 int main()
 {
-    int n = 100;
-    vector<double> v(n);
+    int n = 1000;
+    vector<double> v(n,0);
 
     for(int i = 0; i < n; i++)
         v[i] = random() % n;
 
     double med = median(v);
+    double av = accumulate(v.begin(),v.end(), 0.0) / n;
 
     for(int i = 0; i < n; i++)
         cout << v[i] << " ";
 
     cout << endl;
-    cout << "median=" << med << endl;
+    cout << "median=" << med << " av=" << av<< endl;
 
     return 0;
 }
