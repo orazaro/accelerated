@@ -1,5 +1,7 @@
 #include <iostream>
+#include <sstream>
 #include <string>
+#include <vector>
 #include <iterator>
 
 using namespace std;
@@ -37,9 +39,21 @@ void split(const string& str, Out os)
 int main()
 {
     string s;
-    while(getline(cin, s)) {
-        split(s, ostream_iterator<string>(cout,"\n"));
-    }
+    vector<string> v;
 
+    while(getline(cin, s)) {
+        split(s, back_inserter(v));
+    }
+    cout << "result: ";
+    copy(v.begin(),v.end(),ostream_iterator<string>(cout," "));
+    cout << endl;
+
+    stringstream ss;
+    copy(v.begin(),v.end(),ostream_iterator<string>(ss," "));
+    s = ss.str();
+    cout << "result2: " << s << endl;
+
+    cout << "result3: " << endl;
+    split(s, ostream_iterator<string>(cout,"\n"));
     return 0;
 }
