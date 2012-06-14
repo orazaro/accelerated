@@ -1,0 +1,25 @@
+Mmain.cpp	main.cpp	/^int main()$/
+Mmain2.cpp	main2.cpp	/^int main(int argc, char* argv[])$/
+analysis	main.cpp	/^double analysis(const std::vector<Student_info>& s/
+average	main.cpp	/^double average(const std::vector<double>& v)$/
+average_analysis	main.cpp	/^double average_analysis(const std::vector<Student_/
+average_grade	main.cpp	/^double average_grade(const Student_info& s)$/
+compare	Student_info.cpp	/^bool compare(const Student_info& x, const Student_/
+did_all_hw	main.cpp	/^bool did_all_hw(const Student_info& s)$/
+extract_fails_container	Student_info.cpp	/^StudentList extract_fails_container(StudentList& s/
+extract_fails_partition	Student_info.cpp	/^extract_fails_partition(std::vector<Student_info>&/
+extract_fails_remove	Student_info.cpp	/^extract_fails_remove(std::vector<Student_info>& st/
+extract_fails_resize	Student_info.cpp	/^extract_fails_resize(std::vector<Student_info>& st/
+fgrade	grade.cpp	/^bool fgrade(const Student_info& s)$/
+grade	grade.cpp	/^double grade(double midterm, double final, double /
+grade_aux	main.cpp	/^double grade_aux(const Student_info& s)$/
+median	median.cpp	/^double median(std::vector<double> vec)$/
+median_analysis	main.cpp	/^double median_analysis(const std::vector<Student_i/
+optimistic_median	main.cpp	/^double optimistic_median(const Student_info& s)$/
+optimistic_median_analysis	main.cpp	/^double optimistic_median_analysis(const std::vecto/
+out_students	Student_info.cpp	/^void out_students(const StudentList& students, std/
+pgrade	Student_info.cpp	/^static bool pgrade(const Student_info& s)$/
+read	Student_info.cpp	/^std::istream& read(std::istream& in, Student_info&/
+read_hw	Student_info.cpp	/^std::istream& read_hw(std::istream& in, std::vecto/
+vec_sz	median.cpp	/^    typedef vector<double>::size_type vec_sz;$/
+write_analysis	main.cpp	/^void write_analysis(std::ostream& out, const std::/
