@@ -94,6 +94,12 @@ double optimistic_median_analysis(const std::vector<Student_info>& students)
     return analysis(students, optimistic_median);
 }
 
+template<class T>
+double generic_analysis(const std::vector<Student_info>& students)
+{
+    T func;
+    return analysis(students, func);
+}
 
 int main()
 {
@@ -127,6 +133,8 @@ int main()
     // do the analysis with less generalized form
     write_analysis(cout, "average", average_analysis, did, didnt);
     write_analysis(cout, "median of homework turned in", optimistic_median_analysis, did, didnt);
+    typedef double average_grade(const Student_info& s) aver;
+    write_analysis(cout, "average", generic_analysis<aver>&, did, didnt);
 
     return 0;
 }
