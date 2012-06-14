@@ -35,8 +35,7 @@ int main()
     double med = median(v);
     double av = accumulate(v.begin(),v.end(), 0.0) / n;
 
-    for(int i = 0; i < n; i++)
-        cout << v[i] << " ";
+    copy(v.begin(), v.end(), ostream_iterator<double>(cout, " "));
 
     cout << endl;
     cout << "median=" << med << " av=" << av<< endl;
