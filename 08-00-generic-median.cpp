@@ -20,7 +20,7 @@ T median(vector<T> v)
 
 int main()
 {
-    int n = 10;
+    int n = 100;
     vector<double> v(n);
 
     for(int i = 0; i < n; i++)
@@ -29,8 +29,9 @@ int main()
     double med = median(v);
 
     for(int i = 0; i < n; i++)
-        cout << v[i] << endl;
+        cout << v[i] << " ";
 
+    cout << endl;
     cout << "median=" << med << endl;
 
     return 0;
