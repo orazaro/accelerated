@@ -18,6 +18,11 @@ T median(vector<T> v)
     return size % 2 == 0 ? (v[mid] + v[mid-1]) / 2 : v[mid];
 }
 
+template<class T>
+T tmax(const T& left, const T& right)
+{
+    return left > right ? left : right;
+}
 
 int main()
 {
@@ -35,6 +40,7 @@ int main()
 
     cout << endl;
     cout << "median=" << med << " av=" << av<< endl;
+    cout << "max(median,av) = " << tmax(med,av) << endl;
 
     return 0;
 }
